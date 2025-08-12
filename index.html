@@ -1,0 +1,3320 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tabela de Medicamentos Injetáveis</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* Global and Body Styles */
+
+        body {
+
+            font-family: 'Inter', sans-serif;
+
+            background-color: #0a0514; /* Dark background */
+
+            color: #e0e0e0; /* Light text color for the body */
+
+            display: flex; /* For centering the container */
+
+            justify-content: center;
+
+            align-items: flex-start; /* Align to top for scrolling */
+
+            min-height: 100vh;
+
+            padding: 20px;
+
+        }
+
+        /* Main Calculator Container Styles */
+
+        .container {
+
+            max-width: 900px;
+
+            background-color: #1a1a2e; /* Slightly lighter dark blue */
+
+            border-radius: 15px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+
+            padding: 30px;
+
+            margin-top: 20px;
+
+            margin-bottom: 40px; /* Added margin for spacing before references */
+
+        }
+
+        /* Section Styles */
+
+        .section {
+
+            background-color: #2a2a4a; /* Darker blue for sections */
+
+            border-radius: 10px;
+
+            padding: 20px;
+
+            margin-bottom: 20px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+        }
+
+        /* Form Group Styles */
+
+        .form-group {
+
+            margin-bottom: 1rem;
+
+        }
+
+        /* Labels */
+
+        label {
+
+            font-weight: 600;
+
+            color: #b3b3cc; /* Lighter gray for labels */
+
+        }
+
+        /* Input and Select Fields */
+
+        .form-control, .form-select {
+
+            background-color: #3a3a5a; /* Even darker blue for inputs */
+
+            border: 1px solid #5a5a7a; /* Border color */
+
+            color: #e0e0e0; /* Light text in inputs */
+
+            padding: 0.75rem 1rem;
+
+            border-radius: 8px;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .form-control:focus, .form-select:focus {
+
+            background-color: #4a4a6a;
+
+            border-color: #8a8ad9; /* Lighter blue on focus */
+
+            box-shadow: 0 0 0 0.25rem rgba(138, 138, 217, 0.25);
+
+            color: #e0e0e0;
+
+        }
+
+        /* Buttons */
+
+        .info-button {
+
+            background-color: #6a6ad9; /* Primary blue button */
+
+            border-color: #6a6ad9;
+
+            padding: 0.75rem 1.5rem;
+
+            border-radius: 8px;
+
+            font-weight: 600;
+
+            transition: all 0.3s ease;
+
+            margin: 5px; /* Spacing between buttons */
+
+            flex-grow: 1; /* Allows buttons to grow */
+
+            min-width: 150px; /* Minimum width for buttons */
+
+            text-align: center;
+
+        }
+
+        .info-button:hover {
+
+            background-color: #7b7bdc; /* Lighter blue on hover */
+
+            border-color: #7b7bdc;
+
+            transform: translateY(-2px);
+
+            box-shadow: 0 4px 10px rgba(106, 106, 217, 0.4);
+
+        }
+
+        
+
+        .info-button.active {
+
+            background-color: #4a4ad9; /* Different color for active button */
+
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+
+        }
+
+        /* Flexible button container */
+
+        .buttons-container {
+
+            display: flex;
+
+            flex-wrap: wrap; /* Wraps to the next line on smaller screens */
+
+            gap: 10px; /* Spacing between buttons */
+
+            justify-content: center; /* Centers buttons */
+
+            margin-bottom: 20px;
+
+        }
+
+        /* Output Areas */
+
+        .output-area {
+
+            background-color: #3a3a5a;
+
+            border: 1px solid #5a5a7a;
+
+            border-radius: 8px;
+
+            padding: 1rem;
+
+            min-height: 100px;
+
+            white-space: pre-wrap; /* Preserve whitespace and break text */
+
+            word-wrap: break-word; /* Break long words */
+
+            color: #e0e0e0;
+
+            font-size: 0.95rem;
+
+        }
+
+        .output-item {
+
+            margin-bottom: 0.5rem;
+
+        }
+
+        .output-item strong {
+
+            color: #8a8ad9; /* Color for field titles */
+
+        }
+
+        /* Styles for icons/emojis in output */
+
+        .output-icon {
+
+            font-size: 1.2em; /* Slightly larger size for icons */
+
+            margin-right: 8px;
+
+        }
+
+        /* Responsive Adjustments */
+
+        @media (max-width: 768px) {
+
+            .container {
+
+                padding: 20px;
+
+                margin-top: 10px;
+
+            }
+
+            .info-button {
+
+                width: 100%; /* Buttons take full width on small screens */
+
+                margin: 5px 0;
+
+            }
+
+            .buttons-container {
+
+                flex-direction: column; /* Stack buttons vertically */
+
+                align-items: stretch; /* Stretch buttons to fill width */
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1 class="text-3xl font-bold text-center text-white mb-6">Reconstituição e Diluição de Medicamentos Injetáveis</h1>
+
+        <!-- Medication Search Section -->
+
+        <section id="medicationSearchSection" class="section">
+
+            <h2 class="text-2xl font-semibold text-white mb-4">Buscar Medicamento</h2>
+
+            <div class="form-group">
+
+                <label for="classSelect" class="form-label">Selecione a Classe:</label>
+
+                <select class="form-select" id="classSelect">
+
+                    <option value="">-- Selecione uma classe --</option>
+
+                    <!-- Class options will be populated via JavaScript -->
+
+                </select>
+
+            </div>
+
+            <div class="form-group mt-3">
+
+                <label for="medicationSelect" class="form-label">Selecione o Medicamento:</label>
+
+                <select class="form-select" id="medicationSelect" disabled>
+
+                    <option value="">-- Selecione um medicamento --</option>
+
+                    <!-- Medication options will be populated via JavaScript -->
+
+                </select>
+
+            </div>
+
+            <!-- Container for info buttons, initially hidden -->
+
+            <div id="infoButtonsContainer" class="buttons-container mt-4" style="display: none;">
+
+                <!-- Buttons will be generated here via JavaScript -->
+
+            </div>
+
+            <div class="form-group mt-4">
+
+                <label for="diluicaoOutput" class="form-label">Detalhes da Informação:</label>
+
+                <div id="diluicaoOutput" class="output-area">Selecione uma classe e um medicamento para ver os detalhes.</div>
+
+            </div>
+
+        </section>
+
+        <!-- Legend -->
+
+        <section id="legendaSection" class="section">
+
+            <h2 class="text-2xl font-semibold text-white mb-4">Legenda</h2>
+
+            <ul class="list-disc ps-5 text-white-700">
+
+                <li><strong>AD:</strong> Água Destilada</li>
+
+                <li><strong>SF:</strong> Soro Fisiológico 0,9%</li>
+
+                <li><strong>SG:</strong> Soro Glicosado</li>
+
+                <li><strong>RS:</strong> Ringer Simples</li>
+
+                <li><strong>RL:</strong> Ringer Lactato</li>
+
+                <li><strong>TA:</strong> Temperatura Ambiente</li>
+
+                <li><strong>IM:</strong> Intramuscular</li>
+
+                <li><strong>IV:</strong> Intravenosa</li>
+
+                <li><strong>F/A:</strong> Frasco-Ampola</li>
+
+                <li><strong>AMP:</strong> Ampola</li>
+
+            </ul>
+
+        </section>
+
+    </div>
+
+    <script>
+
+        // Medication data extracted from the PDF and categorized
+
+        const medicationDataByClass = {
+
+  "Antiarritmico": [
+
+    {
+
+      "Medicamento": "Adenosina 3 mg/mL - ampola 2 mL\n     Antiarritmico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Não é necessário diluir.\n     Quando necessário\n     compatível com SF 0,9%;\n     SG 5% ou Ringer Lactato.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Bolus rápido",
+
+      "Observações": "Não refrigerar devido a cristalização.",
+
+      "classe": "Antiarritmico"
+
+    },
+
+    {
+
+      "Medicamento": "Amiodarona, cloridrato 50 mg/mL\n     ampola 3 mL\n     Antiarritmico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Diluir exclusivamente\n     em SG 5%.",
+
+      "Concentração máxima de administração": "0,6mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Dose de 5mg/kg EV direto acima\n     3 minutos.\n     Dose de ataque usal de 5 mg/kg\n     em 250 mL de SG 5%,\n     administrados por um período de\n     20 minutos a 2 horas.\n     Dose de manutenção 10 a\n     20mg/Kg/dia em 250mL de\n     SG5%.",
+
+      "Observações": "",
+
+      "classe": "Antiarritmico"
+
+    }
+
+  ],
+
+  "Vitamina": [
+
+    {
+
+      "Medicamento": "Ácido Ascórbico 100 mg/mL (vitamina\n     C)-ampola 5 mL\n     Vitarnina",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF0,9% ου SG5%-\n     100mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Taxa de infusão: 33mg/min",
+
+      "Observações": "Evite injeção endovenosa rápida, pois pode causar\n     desmaios e tonturas.",
+
+      "classe": "Vitamina"
+
+    },
+
+    {
+
+      "Medicamento": "Fitomenadiona (vitamina K) 10 mg/mL\n     ampola 1 mL\n     Vitaminas, Antagonista",
+
+      "Via de administração": "SC\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5%",
+
+      "Concentração máxima de administração": "0,05mg/mL",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "A via endovenosa deve ser restrita a situações onde\n     outra via não é possível e o alto risco envolvido é\n     justificável. Proteger da luz. Diluir em Sf ou SG5%\n     200mL.",
+
+      "classe": "Vitamina"
+
+    }
+
+  ],
+
+  "Hemostático": [
+
+    {
+
+      "Medicamento": "Ácido Tranexâmico 50 mg/mL - ampola\n     5 mL\n     Hemostático",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%-25mL\n     a 250 mL.",
+
+      "Concentração máxima de administração": "50mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto sem diluição: 1mL/min\n     Infusão: 30 minutos",
+
+      "Observações": "Necessita de ajuste para função renal.",
+
+      "classe": "Hemostático"
+
+    },
+
+    {
+
+      "Medicamento": "Terlipressina, acetato 1 mg pó liófilo\n     frasco-ampola ou solução pronta para\n     uso (0,1 mg/mL com ampola 8,5 mL de\n     solução).\n     Hemostático",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "Apresentação\n     com Diluente\n     próprio (5mL) ou\n     reconstituir com\n     SF 0,9% - 5mL.",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% 10mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Deve ser administrado em bolus\n     lento.",
+
+      "Observações": "Vide Protocolo Institucional - Necessário\n     preenchimento de Formulário de Medicamentos - Uso\n     Restrito - Solicitação de Terlipressina.",
+
+      "classe": "Hemostático"
+
+    }
+
+  ],
+
+  "Hemoderivado/Coloide": [
+
+    {
+
+      "Medicamento": "Albumina Humana 200 mg/mL (20%) -\n     frasco 50 mL\n     Hemoderivado, Coloide Natural",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5% -\n     250mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Não exceder a taxa 1 a 2 mL/min.",
+
+      "Observações": "Deve ser administrada em até 4 horas após abertura do\n     frasco.",
+
+      "classe": "Hemoderivado/Coloide"
+
+    }
+
+  ],
+
+  "Analgésico Opióide": [
+
+    {
+
+      "Medicamento": "Alfentanila, cloridrato 0,544 mg/mL\n     (equivale a 0,5 mg/mL de alfentanila) -\n     ampola 5 mL\n     Anestésico Opioide",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%; SG 5% ou\n     Ringer Lactato.",
+
+      "Concentração máxima de administração": "80mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "Em bolus lento: 3 a 5min ou\n     infusão contínua lenta.",
+
+      "Observações": "Usar com cautela em pacientes com disfunção renal e\n     hepática.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Fentanil, citrato\n     0,0785 mg/mL\n     (equivale a 0,05 mg/mL de Fentanil -\n     ampola 2 ml embalagem estéril\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     Espinhal",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Antídoto: Naloxona.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Fentanil, citrato\n     0,0785 mg/mL\n     (equivale a 0,05 mg/mL de Fentanil -\n     frasco-ampola ou ampola 10 ml\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "Se necessário diluir em\n     SF 0,9% ou SG 5%.",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% -0,02mg/mL e\n     0,01mg/mL\n     SG 5%=0,01mg/ml e\n     0,04mg/mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Administrar lentamente, máximo\n     60 mg/min em adultos.\n     em 30 minutos.\n     Infusão lenta. 1 mg/minuto ou 20\n     ml/minuto.",
+
+      "Observações": "Antídoto: Naloxona.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Morfina, sulfato 10 mg/mL - ampola 1\n     mL\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG 5% 0,1- 1mg/mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: de 3 a 5 minutos",
+
+      "Observações": "Antagonista: Naloxona\n     Quando preparadas em seringas, não armazenar, uso\n     imediato (perda de potência).",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Morfina, sulfato 0,2 mg/mL - ampola 1\n     mL - embalagem estéril\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     IM\n     Intratecal\n     Epidural",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: de 3 a 5 minutos",
+
+      "Observações": "Antagonista: Naloxona.\n     Quando preparadas em seringas, não armazenar, uso\n     imediato (perda de potência).\n     A embalagem Sterile Pack é destinada para uso no\n     Bloco Cirúrgico.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Morfina, sulfato 1 mg/mL - ampola 2\n     mL - embalagem estéril\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     IM\n     Epidural\n     Intratecal",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: de 3 a 5 minutos",
+
+      "Observações": "Antagonista: Naloxona.\n     Quando preparadas em seringas, não armazenar, uso\n     imediato (perda de potência).\n     A embalagem Sterile Pack é destinada para uso no\n     Bloco Cirúrgico.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Nalbufina, cloridrato 10 mg/mL -\n     ampola 1 mL\n     Analgésico Opióide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%; SG5% - 30 a\n     50mL",
+
+      "Concentração máxima de administração": "0,5mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto lento: 30mL em 2 a 3\n     min\n     Infusão: 50mL em 10-15min",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Petidina, cloridrato 50 mg/mL - ampola\n     2 mL\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5% - 10 mL",
+
+      "Concentração máxima de administração": "10mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: lentamente durante 1\n     a 2 minutos.",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Remifentanila, cloridrato 2 mg pó\n     liófilo - frasco-ampola\n     Analgésico Opioide",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "AD - 2 mL.",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5%, SGF - 10\n     - 100 mL.",
+
+      "Concentração máxima de administração": "250 mcg/mL.",
+
+      "Velocidade/ Tempo de infusão": "0,25-0,4mcg/ kg/min",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Sufentanila, citrato 5 mcg/mL - ampola\n     2 mL - embalagem estéril\n     Analgésico Opioide",
+
+      "Via de administração": "Epidural",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Sufentanila 50 mcg/mL - ampola 1 mL\n     Analgésico Opioide",
+
+      "Via de administração": "EV\n     Epidural",
+
+      "Reconstituição": "Se necessário diluição,\n     compatível com SF 0,9%\n     ou SG 5%",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV: Injeção em bolus por pelo\n     menos 2 minutos ou infusão\n     contínua",
+
+      "Observações": "Proteger da luz.",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Tramadol, cloridrato 50 mg/mL -\n     ampola 1 mL\n     Analgésico Opióide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5% - 50 a\n     100 mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 1mL/min\n     Infusão: lento de 30 a 60 min",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    },
+
+    {
+
+      "Medicamento": "Tramadol, cloridrato 50 mg/ mL -\n     ampola 2 mL\n     Analgésico Opióide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5% - 50 a\n     100 mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 1mL/min\n     Infusão: lento de 30 a 60 min",
+
+      "Observações": "",
+
+      "classe": "Analgésico Opióide"
+
+    }
+
+  ],
+
+  "Prostaglandina": [
+
+    {
+
+      "Medicamento": "Alprostadil 20 mcg - frasco-ampola 1\n     mL pó liófilo\n     Prostaglandina",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "SF 0,9% 2mL",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%-50 a 250 mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Administrar EV por 2 horas",
+
+      "Observações": "",
+
+      "classe": "Prostaglandina"
+
+    },
+
+    {
+
+      "Medicamento": "Alprostadil 500 mcg/mL frasco-\n     ampola 1 mL\n     Prostaglandina",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Diluir 1 mL de alprostadil\n     em 99 mL SF 0,9% ou\n     SG5%, mantendo uma\n     concentração de 5\n     mg/mL",
+
+      "Concentração máxima de administração": "Em neonatos:\n     Inicial: 0,05 a\n     0,1mcg/kg/min\n     Manutenção: 0,01 a\n     0,4mcg/kg/miN\n     Concentração\n     máxima: 5 mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "/\n     Velocidade de infusão: 0,03mL\n     Kg/h por até 48 horas.",
+
+      "Observações": "Uso por 2 a 3 dias antes da cirurgia. No entanto, o\n     tratamento pode ser prolongado (até 3 semanas) em\n     casos excepcionais.",
+
+      "classe": "Prostaglandina"
+
+    }
+
+  ],
+
+  "Trombolítico": [
+
+    {
+
+      "Medicamento": "Alteplase 20 mg pó liófilo - frasco-\n     ampola\n     Trombolítico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "AD 20 mL\n     (acompanha o\n     )\n     medicamento",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% até uma\n     concentração mínina de\n     0,2mg/mL",
+
+      "Concentração máxima de administração": "1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV Direta (bolus): 1-2 minutos.\n     Infusão de 0,75mg/kg em 30\n     minutos.\n     Infusão de 0,5mg/kg em 60\n     minutos.",
+
+      "Observações": "Após preparo manter a solução reconstituída sob\n     refrigeração ( (2-8°C) por até 24 horas, ou por até 8\n     horas em temperatura ambiente abaixo de 30°C. Do\n     ponto de vista microbiológico, o produto deve ser\n     utilizado imediatamente após a reconstituição.",
+
+      "classe": "Trombolítico"
+
+    },
+
+    {
+
+      "Medicamento": "Alteplase 50 mg pó liófilo - frasco-\n     ampola\n     Trombolítico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "AD 50 mL\n     (acompanha o\n     medicamento)",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% até uma\n     concentração mínina de\n     0,2mg/mL",
+
+      "Concentração máxima de administração": "1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV Direta (bolus): 1-2 minutos.\n     Infusão de 0,75mg/kg em 30\n     minutos.\n     Infusão de 0,5mg/kg em 60\n     minutos.",
+
+      "Observações": "Após preparo manter a solução reconstituida sob\n     refrigeração ( (2-8°C) por até 24 horas, ou por até 8\n     horas em temperatura ambiente abaixo de 30°C. Do\n     ponto de vista microbiológico, o produto deve ser\n     utilizado imediatamente após a reconstituição.",
+
+      "classe": "Trombolítico"
+
+    }
+
+  ],
+
+  "Broncodilatador": [
+
+    {
+
+      "Medicamento": "Aminofilina 24 mg/mL - ampola 10 mL\n     Broncodilatador",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%,",
+
+      "Concentração máxima de administração": "Não exceder\n     25mg/min",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Broncodilatador"
+
+    },
+
+    {
+
+      "Medicamento": "Terbutalina, sulfato 0,5 mg/mL -\n     ampola 1 mL\n     Broncodilatador (Beta-2 agonista)",
+
+      "Via de administração": "SC\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG 5% - 100mL",
+
+      "Concentração máxima de administração": "5mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "20-30 gotas/min",
+
+      "Observações": "",
+
+      "classe": "Broncodilatador"
+
+    }
+
+  ],
+
+  "Antídoto/Antiespasmódico": [
+
+    {
+
+      "Medicamento": "Atropina, sulfato 0,25 mg/mL - ampola\n     1 mL\n     Anticolinérgico, Antídoto,\n     Antiespasmódico",
+
+      "Via de administração": "SC\n     IM\n     EV",
+
+      "Reconstituição": "Não recomendado\n     diluição, caso necessário",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5%.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV rápido acima de 1 minuto.",
+
+      "Observações": "A administração lenta pode resultar em bradicardia\n     paradoxal.",
+
+      "classe": "Antídoto/Antiespasmódico"
+
+    }
+
+  ],
+
+  "Anti-inflamatório Hormonal/Corticoide": [
+
+    {
+
+      "Medicamento": "Betametasona, fosfato dissódico 4\n     mg/mL-ampola 1 ml\n     Anti-inflamatório Hormonal, Corticoide",
+
+      "Via de administração": "EV\n     IM\n     Intra-articular",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 10%",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    },
+
+    {
+
+      "Medicamento": "Dexametasona, fosfato dissódico 4\n     mg/mL-ampola 2,5 mL\n     Anti-inflamatório Hormonal",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%-50-100\n     mL.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direta lenta ou infusão\n     contínua",
+
+      "Observações": "",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    },
+
+    {
+
+      "Medicamento": "Hidrocortisona, succinato sódico 100\n     mg pó para solução injetável frasco-\n     ampola\n     Anti-inflamatório Hormonal, Corticoide",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "AD ou SF 0,9%-2\n     mL.",
+
+      "Diluição/ Volume de Diluição": "SG 5%, SF 0,9% ou SGF-\n     100-1000 mL.",
+
+      "Concentração máxima de administração": "EV direto: 50mg/mL\n     Infusão: 1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 30seg\n     Infusão: acima de 30min",
+
+      "Observações": "",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    },
+
+    {
+
+      "Medicamento": "Hidrocortisona, succinato 500 mg pó\n     para solução injetável frasco-ampola\n     Anti-inflamatório Hormonal, Corticoide",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "AD ou SF 0,9%-4\n     mL.",
+
+      "Diluição/ Volume de Diluição": "SG 5%, SF 0,9% ou SGF -\n     500-1000 mL.",
+
+      "Concentração máxima de administração": "EV direto: 50mg/mL\n     Infusão: 1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 10min\n     Infusão: acima de 30min",
+
+      "Observações": "",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    },
+
+    {
+
+      "Medicamento": "Metilprednisolona, succinato 125 mg\n     pó para suspensão injetável frasco-\n     ampola\n     Anti-inflamatório Hormonal, Corticoide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "2mL de diluente\n     próprio",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG5%, -20-50\n     mL.",
+
+      "Concentração máxima de administração": "125mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto - Administrar 30 mg/kg\n     por um periodo de, pelo menos,\n     30 minutos. Doses acima de\n     250mg devem ser administradas\n     acima de 30 min.",
+
+      "Observações": "Injeção intramuscular (IM) é a via de administração\n     recomendada.\n     Endovenoso: monitoramento cauteloso da pressão\n     sanguínea.\n     Reconstituir o produto apenas com o diluente que\n     acompanha a embalagem.",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    },
+
+    {
+
+      "Medicamento": "Metilprednisolona, succinato 500 mg\n     pó para suspensão injetável frasco-ampola\n     Anti-inflamatório Hormonal, Corticoide",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "8 mL de diluente\n     próprio",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG5% - 250 -\n     500 mL.",
+
+      "Concentração máxima de administração": "125mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto - Administrar 30 mg/kg\n     por um período de, pelo menos,\n     30 minutos. Doses acima de\n     250mg devem ser administradas\n     acima de 30 min.",
+
+      "Observações": "Reconstituir o produto apenas com o diluente que\n     acompanha a embalagem.",
+
+      "classe": "Anti-inflamatório Hormonal/Corticoide"
+
+    }
+
+  ],
+
+  "Antiparkinsoniano": [
+
+    {
+
+      "Medicamento": "Biperideno, lactato 5 mg/mL - aapola 1\n     mL\n     Antiparkinsoniano",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Antiparkinsoniano"
+
+    }
+
+  ],
+
+  "Anestésico Local": [
+
+    {
+
+      "Medicamento": "Bupivacaína, cloridrato + glicose - 5\n     mg/mL ( (0,5%)+80 mg/mL (8%) -\n     ampola 4 mL embalagem estéril\n     Anestésico Local",
+
+      "Via de administração": "Intratecal\n     (raquianestesia\n     hiperbárica)",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Bupivacaina, cloridrato +\n     hemitartarato de epinefrina; 5 mg/mL\n     (0,5%)+9,1 mcg/mL (1:200.000) -\n     frasco-ampola 20 mL embalagem\n     estéril\n     Anestésico Local\n     Perineural,\n     Bloqueio nervoso\n     Anestesia caudal\n     e Epidural.",
+
+      "Via de administração": "Infiltração local e\n     Perineural,\n     Bloqueio nervoso\n     Anestesia caudal\n     e Epidural.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Bupivacaína, cloridrato 5 mg/mL\n     (0,5%) - frasco-ampola 20 ml\n     embalagem estéril\n     de nervos\n     periféricos e\n     Epidural.\n     Anestésico Local",
+
+      "Via de administração": "Infiltração local,\n     Perineural",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Levobupivacaína, cloridrato +\n     hemitartarato de epinefrina 5 mg/mL\n     (0,5%)+9,1 mcg/mL (1:200.000) -\n     frasco-ampola 20 mL\n     Anestésico Local",
+
+      "Via de administração": "Infiltração,\n     Bloqueio Nervoso,\n     Anestesia caudal\n     Epidural.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Quando necessária,\n     pode ser feita diluição\n     em SF 0,9% sem\n     conservantes.",
+
+      "Concentração máxima de administração": "2.5mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Levobupivacaína, cloridrato 5 mg/mL\n     (0,5%) - frasco-ampola 20 mL\n     embalagem estéril\n     Anestésico Local",
+
+      "Via de administração": "Infiltração,\n     Bloqueio Nervoso,\n     Anestesia caudal\n     Epidural.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% sem\n     conservantes.",
+
+      "Concentração máxima de administração": "2,5mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Lidocaína, cloridrato + hemitartarato\n     Anestesia\n     de epinefrina 20 mg/mL (2%) +\n     locorregional.\n     5mcg/mL (1:200.000) frasco-ampola 20\n     mL embalagem estéril\n     Anestésico Local",
+
+      "Via de administração": "Anestesia\n     locorregional.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Lidocaína, cloridrato 20 mg/ml (2%) -\n     ampola 5 mL\n     Anestésico Local",
+
+      "Via de administração": "Anestesia\n     locorregional.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Quando necessária,\n     pode ser feita diluição\n     em\n     SF 0,9%, SG5% e\n     Glicofisiológico - 50 a\n     1000 mL.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Lidocaína, cloridrato 20 mg/mL (2%) -\n     frasco-ampola 20 mL\n     Anestésico Local",
+
+      "Via de administração": "Anestesia\n     locorregional.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Quando necessária,\n     pode ser feita diluição\n     em\n     SF 0,9%, SG5% e\n     Glicofisiológico - 50 a\n     1000 mL.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Não está indicado para raquianestesia.",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Ropivacaína, cloridrato 10 mg/mL (1%)\n     – frasco-ampola 20 mL embalagem\n     estéril\n     Anestésico Local",
+
+      "Via de administração": "Peridural lombar\n     para cirurgia.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "A depender da via de\n     administração",
+
+      "Observações": "Não usar por via Intravenosa (toxicidade do SNC).",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Ropivacaína, cloridrato 2 mg/mL\n     (0,2%) - frasco-ampola 20 mL\n     embalagem estéril\n     Anestésico Local",
+
+      "Via de administração": "Peridural,\n     Bloqueio de\n     campo e Bloqueio\n     nervoso\n     periférico",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "A depender da via de\n     administração",
+
+      "Observações": "Não usar por via Intravenosa (toxicidade do SNC).",
+
+      "classe": "Anestésico Local"
+
+    },
+
+    {
+
+      "Medicamento": "Ropivacaína, cloridrato 7,5 mg/mL\n     (0,75%) - frasco-ampola 20 mL\n     embalagem estéril\n     Anestésico Local",
+
+      "Via de administração": "Peridural\n     Bloqueio nervoso,\n     Bloqueio de\n     campo e injeção\n     intra-articular.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "A depender da via de\n     administração",
+
+      "Observações": "Não usar por via Intravenosa (toxicidade do SNC).",
+
+      "classe": "Anestésico Local"
+
+    }
+
+  ],
+
+  "Estimulante Respiratório": [
+
+    {
+
+      "Medicamento": "Cafeína, citrato 20 mg/mL (equivale a\n     10 mg/mL de Cafeína) - ampola 1 ml\n     Estimulante respiratório",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5%",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Dose de ataque (20mg/Kg):\n     infusão endovenosa lenta\n     durante 30 minutos.\n     Dose de manutenção (5mg/Kg):\n     infusão endovenosa por 10\n     minutos a cada 24 horas.",
+
+      "Observações": "As doses de manutenção podem ser administradas\n     por via oral ou via sonda nasogástrica a cada 24 horas.",
+
+      "classe": "Estimulante Respiratório"
+
+    }
+
+  ],
+
+  "Anti-inflamatório": [
+
+    {
+
+      "Medicamento": "Cetoprofeno 100 mg pó liófilo - frasco-\n     ampola\n     Anti-inflamatório não esteroidal",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "SF 0,9%-5mL",
+
+      "Diluição/ Volume de Diluição": "SF ou SG %5-100-150\n     mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Infusão lenta mínimo 20\n     minutos",
+
+      "Observações": "Após reconstituição/diluição, uso imediato.",
+
+      "classe": "Anti-inflamatório"
+
+    }
+
+  ],
+
+  "Bloqueador Neuromuscular": [
+
+    {
+
+      "Medicamento": "Cisatracúrio, besilato 2 mg/mL -\n     frasco-ampola 5 mL\n     Bloqueador neuromuscular não\n     despolarizante",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%-100 mL.",
+
+      "Concentração máxima de administração": "2mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 2mg/mL\n     Velocidade de infusão inicial de",
+
+      "Observações": "",
+
+      "classe": "Bloqueador Neuromuscular"
+
+    },
+
+    {
+
+      "Medicamento": "Pancurônio 2 mg/mL - ampola 2 mL\n     Bloqueador neuromuscular não\n     despolarizante",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Compatível com SF\n     0,9%, SG 5%, Solução de\n     Ringer",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 1 a 2 minutos",
+
+      "Observações": "EV Direto – sem diluição.\n     Não existem dados para recomendar infusão\n     contínua.",
+
+      "classe": "Bloqueador Neuromuscular"
+
+    },
+
+    {
+
+      "Medicamento": "Rocurônio, brometo 10 mg/mL –\n     frasco-ampola 5 mL\n     Bloqueador neuromuscular não\n     despolarizante",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5%, SGF ,\n     Ringer Lactato - 250 -\n     1000 mL",
+
+      "Concentração máxima de administração": "2 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "ANTÍDOTO:\n     Sugamadex",
+
+      "classe": "Bloqueador Neuromuscular"
+
+    },
+
+    {
+
+      "Medicamento": "Suxametônio (Succinilcolina) 500 mg\n     pó liofilizado - frasco-ampola\n     Bloqueador neuromuscular\n     despolarizante",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "SF 0,9% - 10 mL",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, ou SG 5% -\n     500mL a 1000mL.",
+
+      "Concentração máxima de administração": "EV - 1 a 2mg/mL.\n     IM - administrar no\n     máximo 150 mg.",
+
+      "Velocidade/ Tempo de infusão": "EV - infusão contínua de 0,5 –\n     10mL/min.",
+
+      "Observações": "",
+
+      "classe": "Bloqueador Neuromuscular"
+
+    }
+
+  ],
+
+  "Sedativo/Agonista Alfa-2 Adrenérgico": [
+
+    {
+
+      "Medicamento": "Clonidina, cloridrato 150 mcg/mL-\n     ampola 1 mL\n     Agonista Alfa-2 Adrenérgico",
+
+      "Via de administração": "IM\n     EV\n     Epidural\n     Intratecal",
+
+      "Reconstituição": "EV Direto: 10mL de SF\n     EV Infusão: 10-500mL\n     de SF",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "3mcg/kg/min (0,18mg/kg/h);\n     Velocidade de manutenção de 1 a\n     2mcg/kg/min (0,06 a\n     0,12mg/kg/h) deve ser adequada\n     para manter o bloqueio.",
+
+      "Velocidade/ Tempo de infusão": "IM profunda, EV lenta (7 a 10\n     minutos) ou diluida, por\n     gotejamento intravenoso.",
+
+      "Observações": "Recomenda-se que o produto seja administrado\n     apenas por via intramuscular.",
+
+      "classe": "Sedativo/Agonista Alfa-2 Adrenérgico"
+
+    },
+
+    {
+
+      "Medicamento": "Dexmedetomidina, cloridrato 100\n     mcg/mL - frasco-ampola 2 mL\n     Sedativo, Agonista Alfa-2 Adrenérgico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "2 mL do medicamento\n     em 48 mL de SF 0,9%\n     totalizando 50mL..",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "4mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "Iniciar com 1mcg/kg em 10\n     minutos, seguida por uma infusão\n     de manutenção 0,2 a\n     0,7mcg/kg/h. (Pacientes Adultos)",
+
+      "Observações": "Compatível com SG5% e Ringer.",
+
+      "classe": "Sedativo/Agonista Alfa-2 Adrenérgico"
+
+    }
+
+  ],
+
+  "Neuroléptico": [
+
+    {
+
+      "Medicamento": "Clorpromazina, cloridrato 5 mg/mL-\n     ampola 5 mL\n     Neuroléptico",
+
+      "Via de administração": "IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Neuroléptico"
+
+    },
+
+    {
+
+      "Medicamento": "Haloperidol 5 mg/mL - ampola 1 mL\n     Neuroléptico",
+
+      "Via de administração": "IM recomendado\n     EV off label\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG 5%",
+
+      "Concentração máxima de administração": "3 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "2-25 mg/hora (quando necessário\n     usar a via EV).",
+
+      "Observações": "Em caso de administração EV monitoramento contínuo\n     do eletrocardiograma, risco de prolongamento do\n     intervalo QT e arritmias cardíacas sérias.",
+
+      "classe": "Neuroléptico"
+
+    }
+
+  ],
+
+  "Vitaminas": [
+
+    {
+
+      "Medicamento": "Complexo B: B1(Tiamina) 4mg; B2\n     (Riboflavina) 1mg; B6 (Piridoxina) 2mg;\n     B3 (Nicotinamida) 20mg; B5\n     (Dexpantenol) 3mg - ampola 2 mL\n     Vitaminas",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%-500-1000\n     mL.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Infundir lentamente (gota a gota)",
+
+      "Observações": "Utilizar equipo fotossensível.",
+
+      "classe": "Vitaminas"
+
+    }
+
+  ],
+
+  "Anti-hemorrágico": [
+
+    {
+
+      "Medicamento": "Complexo Protombínico humano\n     liofilizado 500 UI pó liófilo - frasco-\n     ampola\n     Anti-hemorrágico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "Diluente próprio\n     (disponível na\n     embalagem).\n     Deixar o diluente\n     atingir a\n     temperatura\n     ambiente.",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "1 mL/min nos primeiros 10\n     minutos, não exceder 8mL/min.",
+
+      "Observações": "Recomenda-se que o produto seja administrado\n     imediatamente após o preparo.",
+
+      "classe": "Anti-hemorrágico"
+
+    }
+
+  ],
+
+  "Relaxante Muscular Esquelético": [
+
+    {
+
+      "Medicamento": "Dantroleno sódico 20 mg pó liófilo\n     frasco-ampola\n     Relaxante muscular esquelético -\n     Antidoto",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "60mL de água\n     para injetáveis\n     (exclusivamente),\n     sem\n     conservantes,\n     estéril e\n     apirogênica.",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Infusão em 1 hora.",
+
+      "Observações": "SF 0,9%, SG5% e outras soluções ácidas não são\n     compatíveis, portanto não devem ser usadas.\n     Estabilidade de até 6 horas após a reconstituição entre\n     15-25°C.",
+
+      "classe": "Relaxante Muscular Esquelético"
+
+    }
+
+  ],
+
+  "Glicosídeo Cardíaco": [
+
+    {
+
+      "Medicamento": "Deslanosídeo 0,2 mg/mL - ampola 2 mL\n     Glicosideo Cardíaco",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV lentamente.",
+
+      "Observações": "Não se deve administrar cálcio por via parenteral a\n     pacientes que fazem uso desse fármaco.",
+
+      "classe": "Glicosídeo Cardíaco"
+
+    }
+
+  ],
+
+  "Cardioprotetor": [
+
+    {
+
+      "Medicamento": "Dexrazoxano, cloridrato 500mg -\n     frasco-ampola\n     Cardioprotetor (em uso antraciclinas)",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "AD-25mL",
+
+      "Diluição/ Volume de Diluição": "Ringer lactato de 25-\n     100mL por frasco.",
+
+      "Concentração máxima de administração": "2mg/mL",
+
+      "Velocidade/ Tempo de infusão": "15 minutos",
+
+      "Observações": "",
+
+      "classe": "Cardioprotetor"
+
+    }
+
+  ],
+
+  "Anestésico Geral": [
+
+    {
+
+      "Medicamento": "Dextrocetamina, cloridrato\n     (Escetamina) 50 mg/mL - ampola 2 mL\n     Anestésico Geral",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "Não é necessário diluir\n     para indução anestésica.\n     Para manutenção diluir\n     em SF 0,9% ou SG5% na\n     concentração de\n     2mg/ml",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Bolus/Indução anestésica:\n     durante 1 minuto ou\n     0,5mg/kg/min\n     Manutenção\n     infusão lenta: 0,1 a\n     0,5mg/kg/min",
+
+      "Observações": "",
+
+      "classe": "Anestésico Geral"
+
+    },
+
+    {
+
+      "Medicamento": "Dextrocetamina, cloridrato\n     (Escetamina) 50 mg/mL - frasco-\n     ampola 10 mL\n     Anestésico Geral",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5% -\n     250mL a 500mL",
+
+      "Concentração máxima de administração": "2mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Indução anestésica:\n     0,5mg/kg/min\n     Manutenção infusão lenta: 0,1 a\n     0,5mg/kg/min",
+
+      "Observações": "",
+
+      "classe": "Anestésico Geral"
+
+    },
+
+    {
+
+      "Medicamento": "Propofol 10 mg/ mL 1% emulsão –\n     frasco-ampola 10 mL\n     Anestésico Geral",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG 5%",
+
+      "Concentração máxima de administração": "2mg de propofol/mL",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Estabilidade de 12 horas puro (sem diluição).\n     Estabilidade de 6 horas após diluição.\n     Agitar antes do uso.",
+
+      "classe": "Anestésico Geral"
+
+    },
+
+    {
+
+      "Medicamento": "Propofol 10 mg/ mL 1% emulsão -\n     frasco-ampola 20 mL\n     Anestésico Geral",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG 5%",
+
+      "Concentração máxima de administração": "2mg de propofol/mL",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Estabilidade de 12 horas puro (sem diluição).\n     Estabilidade de 6 horas após diluição.\n     Agitar antes do uso.",
+
+      "classe": "Anestésico Geral"
+
+    }
+
+  ],
+
+  "Ansiolítico/Benzodiazepínico": [
+
+    {
+
+      "Medicamento": "Diazepam 5 mg/mL - ampola 2 mL\n     Ansiolítico, Benzodiazepinico",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "A diluição não é\n     recomendada, porém é\n     compatível com SF 0,9%\n     ou SG5%, mínimo de\n     250mL",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "5 mg/mL (puro)",
+
+      "Velocidade/ Tempo de infusão": "0,5-1 mL/min",
+
+      "Observações": "Vesicante, evitar extravasamento.\n     Antagonista: Flumazenil.\n     A solução injetável não pode ser administrada por mais\n     de 2 dias. Administrar exclusivamente no glúteo.",
+
+      "classe": "Ansiolítico/Benzodiazepínico"
+
+    },
+
+    {
+
+      "Medicamento": "Midazolam, cloridrato 1 mg/mL -\n     ampola 5 mL\n     Hipnótico, Sedativo",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG5% ou\n     Ringer simples - 100mL -\n     1000 mL.",
+
+      "Concentração máxima de administração": "IM: 1mg/mL\n     EV: 5mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "A administração EV deve ser feita\n     lentamente, a uma velocidade de\n     aproximadamente 1mg em 30\n     segundos.",
+
+      "Observações": "Não misturar com soluções alcalinas.\n     Midazolam sofre precipitação em Bicarbonato de\n     sódio.\n     Antídoto: Flumazenil.",
+
+      "classe": "Ansiolítico/Benzodiazepínico"
+
+    },
+
+    {
+
+      "Medicamento": "Midazolam, cloridrato 5 mg/mL -\n     ampola 3 mL\n     Hipnótico, Sedativo",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG5% ou\n     Ringer simples - 100mL -\n     1000 mL.",
+
+      "Concentração máxima de administração": "IM: 1mg/mL\n     EV: 5 mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "A administração EV deve ser feita\n     lentamente, a uma velocidade de\n     aproximadamente 1mg em 30\n     segundos.",
+
+      "Observações": "Não misturar com soluções alcalinas.\n     Midazolam sofre precipitação em Bicarbonato de\n     sódio.\n     Antídoto: Flumazenil.",
+
+      "classe": "Ansiolítico/Benzodiazepínico"
+
+    },
+
+    {
+
+      "Medicamento": "Midazolam, cloridrato 5 mg/mL -\n     ampola 10 mL\n     Hipnótico, Sedativo",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG5% ou\n     Ringer simples - 100mL -\n     1000 mL.",
+
+      "Concentração máxima de administração": "IM: 1mg/mL\n     EV: 5 mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "A administração EV deve ser feita\n     lentamente, a uma velocidade de\n     aproximadamente 1mg em 30\n     segundos.",
+
+      "Observações": "Não misturar com soluções alcalinas.\n     Midazolam sofre precipitação em Bicarbonato de\n     sódio.\n     Antídoto: Flumazenil.",
+
+      "classe": "Ansiolítico/Benzodiazepínico"
+
+    }
+
+  ],
+
+  "Anti-histamínico": [
+
+    {
+
+      "Medicamento": "Difenidramina, cloridrato 50 mg -\n     ampola 1 mL\n     Anti-histaminico antagonista H1 de\n     primeira geração, Antídoto",
+
+      "Via de administração": "IM profundo\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%\n     Volume Sugerido: 50mL",
+
+      "Concentração máxima de administração": "50 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "IM profunda, EV direto (3 a 5\n     min), Infusão de 15-30min.",
+
+      "Observações": "",
+
+      "classe": "Anti-histamínico"
+
+    },
+
+    {
+
+      "Medicamento": "Prometazina 25 mg/mL - ampola 2 mL\n     Anti-Histamínico",
+
+      "Via de administração": "IM profunda.",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "25mg/mL",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Vesicante.",
+
+      "classe": "Anti-histamínico"
+
+    }
+
+  ],
+
+  "Antiemético": [
+
+    {
+
+      "Medicamento": "Dimenidrinato 50 mg/mL + piridoxina\n     50 mg/mL-ampola 1 mL\n     Antiemético, Antagonista H",
+
+      "Via de administração": "IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Uso exclusivo IM (profundo) preferencialmente em\n     região glútea.",
+
+      "classe": "Antiemético"
+
+    },
+
+    {
+
+      "Medicamento": "Dimenidrinato 3 mg/mL + piridoxina 5\n     mg/mL + glicose 100 mg/mL + frutose\n     100 mg/mL-ampola 10 ml\n     Antiemético, Antagonista H",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "SF 0,9%\n     EV direto: diluir 10mL SF\n     0,9%.",
+
+      "Diluição/ Volume de Diluição": "Infusão: diluir de 50 a\n     SF 0,9%.\n     100mL",
+
+      "Concentração máxima de administração": "3mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: > 2 min.\n     EV infusão: 30 min.",
+
+      "Observações": "",
+
+      "classe": "Antiemético"
+
+    },
+
+    {
+
+      "Medicamento": "Metoclopramida, cloridrato 10 mg/2\n     mL ampola\n     Antiemético, Procinético",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SG 5%, SF 0,9% - 50 mL",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV: no mínimo por 3 minutos.\n     IM : administrar lento",
+
+      "Observações": "Risco de sintomas extrapiramidais. Cautela em\n     pacientes que apresentam fatores de risco conhecidos\n     para prolongamento do intervalo QT.",
+
+      "classe": "Antiemético"
+
+    },
+
+    {
+
+      "Medicamento": "Ondansetrona, cloridrato 2 mg/mL\n     Antiemético, Antagonista Seletivo do\n     Receptor Serotonina",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG 5%, Solução\n     de Ringer - 50 mL -\n     100mL.",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "Doses de 8 mg ou menos não\n     precisam ser diluídas: podem ser\n     administrada IM ou EV lento > 30\n     segundos.\n     Doses acima de 8mg até 16mg -\n     Infusão : acima de 15 min.",
+
+      "Observações": "_",
+
+      "classe": "Antiemético"
+
+    }
+
+  ],
+
+  "Analgésico/Antitérmico": [
+
+    {
+
+      "Medicamento": "Dipirona 500 mg/mL - ampola 2 mL\n     Antitérmico, Analgésico",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%",
+
+      "Concentração máxima de administração": "500mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 1mL/min.",
+
+      "Observações": "",
+
+      "classe": "Analgésico/Antitérmico"
+
+    }
+
+  ],
+
+  "Agonista Adrenérgico/Inotrópico": [
+
+    {
+
+      "Medicamento": "Dobutamina, cloridrato 12,5 mg/mL -\n     ampola 20 mL\n     Agonista Adrenérgico beta-1, Inotrópico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5% -\n     250mL-500 mL ou\n     1000mL",
+
+      "Concentração máxima de administração": "5000 mcg/mL (250 mg\n     de dobutamina diluído.\n     para 50mL)",
+
+      "Velocidade/ Tempo de infusão": "0,0025 mL/Kg/min a 0,06\n     mL/Kg/min",
+
+      "Observações": "Diluído para 1000 mL concentração 250 mcg/mL.\n     Diluído para 500 mL concentração 500 mcg/mL.\n     Diluído para 250 mL - a concentração 1000 mcg/mL",
+
+      "classe": "Agonista Adrenérgico/Inotrópico"
+
+    }
+
+  ],
+
+  "Agonista Adrenérgico": [
+
+    {
+
+      "Medicamento": "Dopamina, cloridrato 5 mg/mL -\n     ampola 10 mL\n     Agonista Adrenérgico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5% - 250\n     mL",
+
+      "Concentração máxima de administração": "3200mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "20 mcg/kg/min.",
+
+      "Observações": "Deve ser administrada em bomba de infusão em veia\n     de grande calibre.\n     Medicamento fotossensível, utilizar equipo âmbar.\n     É inativada em soluções alcalinas.",
+
+      "classe": "Agonista Adrenérgico"
+
+    },
+
+    {
+
+      "Medicamento": "Efedrina, sulfato 50 mg/mL - ampola 1\n     mL\n     Agonista Adrenérgico",
+
+      "Via de administração": "IM\n     EV\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5%-9 mL",
+
+      "Concentração máxima de administração": "5 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV lento",
+
+      "Observações": "Proteger a ampola da luz até o momento de usar.",
+
+      "classe": "Agonista Adrenérgico"
+
+    },
+
+    {
+
+      "Medicamento": "Epinefrina 1 mg/mL - ampola 1 ml\n     Agonista Adrenérgico",
+
+      "Via de administração": "EV\n     IM\n     SC\n     Intracardíaca",
+
+      "Reconstituição": "Diluir em SF 0,9% ou SG\n     5%.",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "16mcg/mL para\n     adultos.\n     64mcg/mL para\n     crianças.",
+
+      "Velocidade/ Tempo de infusão": "Adultos: 0,1-0,5mcg/kg/min\n     Pediatria: 0,1-01mcg/kg/min",
+
+      "Observações": "Proteger da Luz. Sensível a luz e ao ar.\n     Vesicante, evitar extravasamento.",
+
+      "classe": "Agonista Adrenérgico"
+
+    },
+
+    {
+
+      "Medicamento": "Metaraminol, bitartarato 10 mg/mL-\n     ampola 1mL\n     Agonista Adrenérgico",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5% - 500\n     mL",
+
+      "Concentração máxima de administração": "0,2mg/ml",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "No choque grave pode ser administrado EV direto 0,5\n     a 5mg. Atenção: medicamento vesicante.",
+
+      "classe": "Agonista Adrenérgico"
+
+    },
+
+    {
+
+      "Medicamento": "Norepinefrina, hemitartarato 2 mg/mL\n     - ampola 4 mL\n     Agonista Adrenérgico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SG 5%, SGF - 250 - 1000\n     mL",
+
+      "Concentração máxima de administração": "0,5mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "Inicial: 2-3mL/min\n     Manutenção: 0,5-1mL/min",
+
+      "Observações": "Administrar em veia calibrosa (central). Vesicante,\n     evitar extravasamento. Proteger da luz.\n     Não é recomendada a administração apenas em\n     solução salina, a fim de evitar perdas por oxidação.",
+
+      "classe": "Agonista Adrenérgico"
+
+    }
+
+  ],
+
+  "Anticoagulante": [
+
+    {
+
+      "Medicamento": "Enoxaparina sódica 20 mg/0,2mL\n     seringa preenchida - 0,2 mL\n     Anticoagulante, Heparina de Baixo Peso\n     Molecular",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Administração na região anterolateral ao abdômen,\n     alternando a cada aplicação os lados direito e\n     esquerdo.",
+
+      "classe": "Anticoagulante"
+
+    },
+
+    {
+
+      "Medicamento": "Enoxaparina sódica 40 mg/0,4mL\n     seringa preenchida - 0,4 mL\n     Anticoagulante, Heparina de Baixo Peso\n     Molecular",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Administração na região anterolateral ao abdômen,\n     alternando a cada aplicação os lados direito e\n     esquerdo.",
+
+      "classe": "Anticoagulante"
+
+    },
+
+    {
+
+      "Medicamento": "Enoxaparina sódica 60 mg/0,6mL\n     seringa preenchida - 0,6 mL\n     Anticoagulante, Heparina de Baixo Peso\n     Molecular",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Administração na região anterolateral ao abdômen,\n     alternando a cada aplicação os lados direito e\n     esquerdo.",
+
+      "classe": "Anticoagulante"
+
+    },
+
+    {
+
+      "Medicamento": "Enoxaparina sódica 80 mg/0,8mL\n     seringa preenchida - 0,8 mL\n     Anticoagulante, Heparina de Baixo Peso\n     Molecular",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Administração na região anterolateral ao abdômen,\n     alternando a cada aplicação os lados direito e\n     esquerdo.",
+
+      "classe": "Anticoagulante"
+
+    },
+
+    {
+
+      "Medicamento": "Heparina sódica 5000 UI/0,25 mL -\n     ampola 0,25 mL\n     Solução anticoagulante",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "",
+
+      "classe": "Anticoagulante"
+
+    },
+
+    {
+
+      "Medicamento": "Heparina sódica 5000 UI/mL-frasco-\n     ampola 5 mL\n     Solução anticoagulante",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG5% e Ringer,\n     100-250 mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Antidoto: Protamina. Cada 1mL de protamina inativa.\n     1.000 UI de heparina sódica.\n     Recomenda-se o uso de bomba de infusão.\n     A via IM não é recomendada devido  dor e hematoma.",
+
+      "classe": "Anticoagulante"
+
+    }
+
+  ],
+
+  "Antiespasmódico": [
+
+    {
+
+      "Medicamento": "Escopolamina, butilbrometo 20 mg/mL\n     - ampola 1 ml\n     Antiespasmódico, Anticolinérgico",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%-50 mL-\n     100mL\n     Pode ser administrada\n     pura.",
+
+      "Concentração máxima de administração": "20mg/ml (puro)",
+
+      "Velocidade/ Tempo de infusão": "1 mL/min\n     EV direto: 30 minutos",
+
+      "Observações": "Contraindicado uso em idosos, especialmente\n     sensíveis aos efeitos secundários dos antimuscarinicos,\n     como secura da boca e retenção urinária.\n     Não exceder a dose máxima de 100 mg (5 ampolas) por\n     dia para adultos.",
+
+      "classe": "Antiespasmódico"
+
+    },
+
+    {
+
+      "Medicamento": "Escopolamina, butilbrometo + dipiron\n     sódica; 4 mg/mL+500mg/mL\n     ampola 5 mL\n     Antiespasmódico, Anticolinérgico",
+
+      "Via de administração": "EV\n     IM profunda",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%-50mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV direto: Em 5 min\n     Mínimo de 1mL/min",
+
+      "Observações": "Não deve ser administrado por via parenteral em\n     pacientes com glaucoma, taquicardia, estenoses\n     mecânicas no trato gastrintestinal, megacólon,\n     miastenia grave OU hipertrofia prostática.\n     Contraindicado USO em idosos, especialmente\n     sensíveis aos efeitos secundários dos antimuscarinicos,\n     como secura da boca e retenção urinária.",
+
+      "classe": "Antiespasmódico"
+
+    }
+
+  ],
+
+  "Vasoconstritor/Hipertensor": [
+
+    {
+
+      "Medicamento": "Etilefrina, cloridrato 10 mg/mL -\n     ampola 1 mL\n     Vasoconstritor e hipertensor",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF, SG 5% ou Ringer\n     Lactato.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "0,4 mg/min - adultos. 0,2 mg/min\n     crianças de 2-6 anos.\n     0,05 a 0,2mg/min-crianças\n     menores de 2 anos.",
+
+      "Observações": "",
+
+      "classe": "Vasoconstritor/Hipertensor"
+
+    }
+
+  ],
+
+  "Hipnótico": [
+
+    {
+
+      "Medicamento": "Etomidato 2 mg/mL - ampola 10 mL\n     Hipnótico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "Não é necessário\n     diluição.",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV lento: 30 a 60 segundos.",
+
+      "Observações": "Não apresenta ação analgésica. A solução é altamente\n     irritante, evitar a administração em vasos de pequeno\n     calibre.",
+
+      "classe": "Hipnótico"
+
+    }
+
+  ],
+
+  "Anticonvulsivante": [
+
+    {
+
+      "Medicamento": "Fenitoína sódica 50 mg/mL - ampola 5\n     mL\n     Anticonvulsivante",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "Não é recomendado a\n     diluição. Caso necessário\n     diluir com SF 0,9% -\n     50mL",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "5mg/mL",
+
+      "Velocidade/ Tempo de infusão": "50 mg/min em adultos.\n     EV infusão: 60 minutos",
+
+      "Observações": "Vesicante, evitar extravasamento. Administrar em veia\n     de grande calibre. Recomendado a infusão por curtos\n     períodos utilizando filtro de 0,22 micras.",
+
+      "classe": "Anticonvulsivante"
+
+    },
+
+    {
+
+      "Medicamento": "Fenobarbital sódico 100 mg/mL\n     ampola 2 mL\n     Anticonvulsivante",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF ou SG 5%",
+
+      "Concentração máxima de administração": "10mg/mL",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 3 a 5 minutos.",
+
+      "Observações": "Irritante, evitar extravasamento. IM: a injeção\n     intramuscular deve ser aplicada em local de massa\n     muscular larga e injetar menos de 5mL em cada lado.",
+
+      "classe": "Anticonvulsivante"
+
+    }
+
+  ],
+
+  "Fator Estimulador de Colônias de Granulócitos": [
+
+    {
+
+      "Medicamento": "Filgrastim 300 mcg 1 mL frasco ou\n     seringa preenchida\n     Fator Estimulador de Colônias de\n     Granulócitos",
+
+      "Via de administração": "SC\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG5%-50 mL (somente\n     para administração EV)",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Infundir",
+
+      "Observações": "Incompatível com SF 0,9%",
+
+      "classe": "Fator Estimulador de Colônias de Granulócitos"
+
+    }
+
+  ],
+
+  "Outros/Não Classificado": [
+
+    {
+
+      "Medicamento": "Folinato de Cálcio (Ácido Folínico)\n     50mg pó liófilo frasco ampola\n     Agente desintoxicante para tratamento\n     antineoplásico",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "5ml de água\n     bacteriostática ou\n     água para\n     injetáveis.",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5%-50mL",
+
+      "Concentração máxima de administração": "10 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Não exceder 160mg/min.",
+
+      "Observações": "Quando\n     reconstituído em água bacteriostática\n     (contendo álcool benzílico), o medicamento poderá ser\n     utilizado em até 7 (sete) dias.\n     Caso o produto seja reconstituído com água para\n     injetáveis, recomenda-se utilização imediata e\n     descarte da porção não utilizada.",
+
+      "classe": "Outros/Não Classificado"
+
+    },
+
+    {
+
+      "Medicamento": "Folinato de Cálcio (Ácido Folinico) 10\n     mg/mL frasco-ampola 30 mL\n     Agente desintoxicante para tratamento\n     antineoplásico",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5%\n     Dose até 300mg-100mL\n     Dose acima 300mg -\n     250mnL",
+
+      "Concentração máxima de administração": "10 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Máximo 160mg/min.",
+
+      "Observações": "",
+
+      "classe": "Outros/Não Classificado"
+
+    },
+
+    {
+
+      "Medicamento": "Mesna 100 mg/mL - ampola 4mL\n     Agente desintoxicante para tratamento\n     antineoplásico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "20mg/ml",
+
+      "Velocidade/ Tempo de infusão": "EV direta por 15-30min ou\n     infusão contínua.",
+
+      "Observações": "A diluição de mesna com Solução de Ringer é estável\n     por 12 horas a temperatura ambiente.",
+
+      "classe": "Outros/Não Classificado"
+
+    },
+
+    {
+
+      "Medicamento": "Pentoxifilina 20 mg/mL - ampola 5 mL\n     Agente Hemorreológico, Redutor da\n     Viscosidade do Sangue",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou Solução de\n     Ringer - 250 a 500 mL",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "120 a 180 minutos.",
+
+      "Observações": "",
+
+      "classe": "Outros/Não Classificado"
+
+    },
+
+    {
+
+      "Medicamento": "Tirofibana, cloridrato 0,25 mg/mL –\n     frasco-ampola 50 mL\n     Antiagregante Plaquetário",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5% - 200\n     mL",
+
+      "Concentração máxima de administração": "50mcg/mL",
+
+      "Velocidade/ Tempo de infusão": "Angina instável ou Infarto do\n     Miocárdio sem elevação do\n     segmento ST:\n     Dose inicial: 0,4 mcg/kg/min por\n     30 min.\n     Dose manutenção: 0,1\n     mcg/kg/min.\n     Angioplastia/Aterectomia:\n     Dose inicial: 10 mcg/kg, bolus, 3\n     minutos.\n     Dose manutenção: 0,15\n     mcg/kg/min.",
+
+      "Observações": "Necessário ajuste da dose pelo Clearance de\n     creatinina <60ml/min.",
+
+      "classe": "Outros/Não Classificado"
+
+    }
+
+  ],
+
+  "Repositor Eletrolítico": [
+
+    {
+
+      "Medicamento": "Fosfato de potássio 2meq/mL-\n     ampola 10mL\n     Repositor Eletrolítico",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF0,9% ou SG5%-250-\n     500 mL.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "Tempo de infusão: 6 a 12 horas.",
+
+      "Observações": "Não administrar na mesma bolsa ou em linha com\n     solução de sais de cálcio.",
+
+      "classe": "Repositor Eletrolítico"
+
+    }
+
+  ],
+
+  "Diurético de Alça": [
+
+    {
+
+      "Medicamento": "Furosemida 10 mg/mL - ampola 2 mL\n     Diurético de Alça",
+
+      "Via de administração": "IM\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%\n     Ringer\n     ou",
+
+      "Concentração máxima de administração": "10 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "4 mg/min. Para uso em bolus,\n     administrar cerca de 1 a 2\n     minutos.",
+
+      "Observações": "Proteger da luz. Pode ser administrada sem diluição. A\n     administração IM deve ser restrita a casos\n     excepcionais.",
+
+      "classe": "Diurético de Alça"
+
+    }
+
+  ],
+
+  "Hormônio": [
+
+    {
+
+      "Medicamento": "Gosserrelina, acetato 3,6 mg seringa\n     preenchida\n     Antineoplásico, Hormônio",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Seringa preenchida pronta para uso.",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Insulina Humana NPH 100 UI/mL -\n     frasco-ampola 10 mL\n     Hipoglicemiante",
+
+      "Via de administração": "SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Diluir cada 100 UI de\n     insulina em 100 mL\n     de SF 0,9%",
+
+      "Concentração máxima de administração": "1 unidade/mL",
+
+      "Velocidade/ Tempo de infusão": "EV bolus;\n     Infusão contínua: correr em 2 a 3\n     horas",
+
+      "Observações": "Não misturar com SF 0,9%",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Insulina Humana Regular 100 UI/mL·\n     frasco-ampola 10 mL\n     Hipoglicemiante",
+
+      "Via de administração": "SC\n     IM\n     EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%-100\n     mL",
+
+      "Concentração máxima de administração": "1 unidade/mL",
+
+      "Velocidade/ Tempo de infusão": "EV bolus;\n     Infusão contínua: correr em 2 a 3\n     horas",
+
+      "Observações": "Não misturar com SF 0,9%",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Leuprorrelina, acetato 3,75 mg pó\n     liófilo\n     Hormônio",
+
+      "Via de administração": "IM",
+
+      "Reconstituição": "Reconstituído\n     diluente próprio.",
+
+      "Diluição/ Volume de Diluição": "",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "Aumento dos níveis séricos de testosterona no início\n     do tratamento. Usar com cautela em pacientes com\n     histórico de doença psiquiátrica.",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Metilergometrina, maleato\n     0,2 mg/mL\n     - ampola 1 mL\n     Estimulante uterino",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Não necessita de\n     diluição.",
+
+      "Concentração máxima de administração": "",
+
+      "Velocidade/ Tempo de infusão": "EV administrar lento, acima de\n     60 segundos.",
+
+      "Observações": "Injeção intramuscular (IM) é a via de administração\n     recomendada.",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Ocitocina 5 UI/mL - ampola 1 mL\n     Estimulante Uterino",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SG 5% ou SF 0,9% -\n     500mL",
+
+      "Concentração máxima de administração": "0,01UI/mL",
+
+      "Velocidade/ Tempo de infusão": "Inicial: 1 a 4 miliunidades/min (2\n     a 8 gotas/minuto).\n     Velocidade máxima: 20\n     miliunidades/min (40 gotas/min).",
+
+      "Observações": "_",
+
+      "classe": "Hormônio"
+
+    },
+
+    {
+
+      "Medicamento": "Vasopressina 20 U/mL - ampola 1 mL\n     Hormônio Antidiurético",
+
+      "Via de administração": "SC\n     IM\n     EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG 5%\n     EV direta: 9mL diluente\n     Infusão contínua: 99 mL\n     do diluente.",
+
+      "Concentração máxima de administração": "1 U/mL",
+
+      "Velocidade/ Tempo de infusão": "0,01-0,04U/min",
+
+      "Observações": "Seguir recomendações institucionais para\n     Medicamentos de Uso Restrito.\n     Administrar preferencialmente em veia central ou\n     veia periférica profunda.",
+
+      "classe": "Hormônio"
+
+    }
+
+  ],
+
+  "Nitrato/Vasodilatador": [
+
+    {
+
+      "Medicamento": "Isossorbida, mononitrato 10 mg/mL-\n     ampola 1 mL\n     Nitrato, Vasodilatador",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "Volume igual de SG 5%",
+
+      "Concentração máxima de administração": "100mg/mL",
+
+      "Velocidade/ Tempo de infusão": "O produto deve ser infundido\n     inicialmente a uma velocidade de\n     0,3 mL/kg de peso corporal/h\n     (por 30 minutos). Se houver boa\n     tolerabilidade, a velocidade de\n     infusão pode ser aumentada\n     gradativamente para 4,8 mL/kg\n     de peso corporal/h.",
+
+      "Observações": "",
+
+      "classe": "Nitrato/Vasodilatador"
+
+    },
+
+    {
+
+      "Medicamento": "Nitroglicerina 5 mg/mL - ampola 5 mL\n     Vasodilatador Coroniano",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% ou SG5% - 250 -\n     500 mL.",
+
+      "Concentração máxima de administração": "400 mcg/mL.",
+
+      "Velocidade/ Tempo de infusão": "",
+
+      "Observações": "A infusão de nitroglicerina injetável não deve ser\n     misturada com outros fármacos. Diluir antes do uso.\n     Não fazer via intravenosa direta.",
+
+      "classe": "Nitrato/Vasodilatador"
+
+    },
+
+    {
+
+      "Medicamento": "Nitroprusseto de sódio 50 mg pó liófilo\n     + diluente ou ampola pronta para uso\n     Vasodilatador",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "Diluente próprio\n     (SG 5% - 2 mL) ou\n     solução pronta\n     para uso.",
+
+      "Diluição/ Volume de Diluição": "SG5% - 250, 500 ou\n     1000mL.",
+
+      "Concentração máxima de administração": "0,2mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Inicial: 0,3 - 1 mcg/Kg/min\n     Dose máxima: 10mcg/Kg/min",
+
+      "Observações": "Medicamento irritante, evitar extravasamento. A\n     solução reconstituída é estável por 4 horas, e a solução\n     diluída é estável por 24 horas. Proteger da luz.",
+
+      "classe": "Nitrato/Vasodilatador"
+
+    },
+
+    {
+
+      "Medicamento": "Papaverina, cloridrato 50 mg/mL -\n     ampola 2 mL\n     Vasodilatador",
+
+      "Via de administração": "EV\n     IM\n     Intra-arterial",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "Se necessário\n     compatível com SF 0,9%,\n     SG 5%",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV ou IM lento por 1 a 2 minutos.",
+
+      "Observações": "_",
+
+      "classe": "Nitrato/Vasodilatador"
+
+    }
+
+  ],
+
+  "Agente Cardiotônico": [
+
+    {
+
+      "Medicamento": "Levosimendana 2,5 mg/mL - frasco-\n     ampola 5 mL\n     Agente cardiotônico, sensibilizador de\n     cálcio",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "",
+
+      "Diluição/ Volume de Diluição": "SG 5%-500mL",
+
+      "Concentração máxima de administração": "0,05 mg/ml",
+
+      "Velocidade/ Tempo de infusão": "Dose inicial de 6 a 12 mcg/kg\n     infundidos durante 10 minutos,\n     seguida por uma infusão contínua\n     de 0,1 mcg/kg/min por 24 horas.",
+
+      "Observações": "A cor da solução pode modificar-se para laranja\n     durante o armazenamento, não comprometendo a\n     potência.",
+
+      "classe": "Agente Cardiotônico"
+
+    }
+
+  ],
+
+  "Inibidor da Fosfodiesterase": [
+
+    {
+
+      "Medicamento": "Milrinona, lactato 1 mg/mL - ampola\n     10 mL\n     Inibidor da fosfodiesterase",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5%\n     Dose de ataque: Pode\n     administrar sem diluição\n     ou diluir em volume de\n     10 - 20mL.\n     Infusão contínua: 20 mg\n     para 100mL",
+
+      "Concentração máxima de administração": "200mcg/ml",
+
+      "Velocidade/ Tempo de infusão": "Dose de ataque: 50mcg/kg em\n     10min\n     Dose de manutenção:\n     0,375 a 0,750mcg/kg/ min em\n     infusão contínua",
+
+      "Observações": "Não deve ser diluído em soluções contendo\n     Bicarbonato de Sódio.",
+
+      "classe": "Inibidor da Fosfodiesterase"
+
+    }
+
+  ],
+
+  "Antídoto": [
+
+    {
+
+      "Medicamento": "Naloxona, cloridrato 0,4 mg/mL -\n     ampola 1 mL\n     Antagonista opioide",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG5% - 100mL –\n     500mL",
+
+      "Concentração máxima de administração": "Infusão contínua: 2\n     mg em 500 ml de\n     diluente: 0,004mg/mL.\n     Concentração para EV\n     direto: 0,4mg em 9mL\n     de diluente:\n     0,04mg/mL.",
+
+      "Velocidade/ Tempo de infusão": "_",
+
+      "Observações": "_",
+
+      "classe": "Antídoto"
+
+    },
+
+    {
+
+      "Medicamento": "Protamina, cloridrato 10 mg/mL (1000\n     UI/mL) - ampola 5 mL\n     Antídoto",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "_",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV lento: Entre 1 a 3 minutos.\n     Máximo: 50 mg em 10 minutos.",
+
+      "Observações": "Cada 1 mL de Protamina neutraliza 1.000 UI de\n     heparina",
+
+      "classe": "Antídoto"
+
+    },
+
+    {
+
+      "Medicamento": "Sugamadex sódico 100 mg/mL –\n     frasco-ampola 2 mL\n     Antídoto, Agente Reversor de Bloqueio\n     Neuromuscular",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "Não é necessária\n     diluição. Se necessário\n     diluir em SF 0,9%.",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "Bolus rápido.",
+
+      "Observações": "Proteger da luz.",
+
+      "classe": "Antídoto"
+
+    }
+
+  ],
+
+  "Inibidor da Acetilcolinesterase": [
+
+    {
+
+      "Medicamento": "Neostigmina, metilssulfato 0,5 mg/mL\n     - ampola 1 mL\n     Inibidor da acetilcolinesterase",
+
+      "Via de administração": "EV\n     IM\n     SC",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "IM ou SC: pronto para\n     uso.\n     EV: diluir em qsp 10 mL\n     de SF",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV: lentamente; no mínimo 3 a 5\n     minutos.",
+
+      "Observações": "_",
+
+      "classe": "Inibidor da Acetilcolinesterase"
+
+    }
+
+  ],
+
+  "Análogo de Somatostatina": [
+
+    {
+
+      "Medicamento": "Octreotida, acetato 0,1 mg/mL ampola\n     1 mL\n     Análogo de Somatostatina",
+
+      "Via de administração": "EV\n     SC",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG 5% - 50 -\n     200 mL.",
+
+      "Concentração máxima de administração": "0,1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Infusão contínua: 50mcg/hora,\n     equivalente a 1,2mg/dia.\n     SC: Fístula pancreática, ascite,\n     derrame pleural: 0,1mg (100mcg)\n     de 8/8h",
+
+      "Observações": "Protocolo Institucional - Necessário preenchimento de\n     Formulário de Medicamentos - Uso Restrito.\n     Proteger da luz. Não misturar outros medicamentos..",
+
+      "classe": "Análogo de Somatostatina"
+
+    },
+
+    {
+
+      "Medicamento": "Octreotida, acetato 0,5 mg/mL ampola\n     1 mL\n     Análogo de Somatostatina",
+
+      "Via de administração": "EV\n     SC",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG 5% - 50 -\n     200 mL.",
+
+      "Concentração máxima de administração": "0,1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Infusão contínua: 50mcg/hora,\n     equivalente a 1,2mg/dia.\n     SC: Fístula pancreática, ascite,\n     derrame pleural: 0,1mg (100mcg)\n     de 8/8h",
+
+      "Observações": "Protocolo Institucional - Necessário preenchimento de\n     Formulário de Medicamentos - Uso Restrito.\n     Proteger da luz. Não misturar outros medicamentos.",
+
+      "classe": "Análogo de Somatostatina"
+
+    },
+
+    {
+
+      "Medicamento": "Octreotida, acetato 0,05 mg/mL\n     ampola 1 mL\n     Análogo de Somatostatina",
+
+      "Via de administração": "EV\n     SC",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SF 0,9% , SG 5% - 50 -\n     200 mL.",
+
+      "Concentração máxima de administração": "0,1mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Infusão contínua: 50mcg/hora,\n     equivalente a 1,2mg/dia.\n     SC: Fístula pancreática, ascite,\n     derrame pleural: 0,1mg (100mcg)\n     de 8/8h",
+
+      "Observações": "Protocolo Institucional - Necessário preenchimento de\n     Formulário de Medicamentos - Uso Restrito.\n     Proteger da luz. Não misturar outros medicamentos.",
+
+      "classe": "Análogo de Somatostatina"
+
+    }
+
+  ],
+
+  "Inibidor da Bomba de Prótons": [
+
+    {
+
+      "Medicamento": "Omeprazol sódico 40 mg pó liofilizado\n     frasco-ampola + diluente próprio\n     Inibidor da Bomba de Prótons",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "Diluente próprio -\n     10mL",
+
+      "Diluição/ Volume de Diluição": "EV direta: 10mL do\n     diluente próprio.\n     Infusão: SF 0,9% ou SG\n     5% - 100 mL.",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV Direta: Aplicar lentamente, de\n     2,5mL/min até um máximo de\n     4mL/min.\n     Infusão: deve ser administrada\n     por um período não inferior a 20-\n     30 minutos.",
+
+      "Observações": "Proteger da luz.\n     Reconstituir somente com o diluente próprio (10mL).\n     Estável por 4 horas.",
+
+      "classe": "Inibidor da Bomba de Prótons"
+
+    },
+
+    {
+
+      "Medicamento": "Pantoprazol sódico 40 mg pó para\n     solução injetável - frasco-ampola\n     Inibidor da Bomba de Prótons",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "SF 0,9% - 10 ml",
+
+      "Diluição/ Volume de Diluição": "SF 0,9%, SG 5% - 100 mL",
+
+      "Concentração máxima de administração": "_",
+
+      "Velocidade/ Tempo de infusão": "EV direto (bolus): mínimo de 2\n     minutos Infusão rápida:\n     15 minutos",
+
+      "Observações": "_",
+
+      "classe": "Inibidor da Bomba de Prótons"
+
+    }
+
+  ],
+
+  "Inibidor da Reabsorção Óssea": [
+
+    {
+
+      "Medicamento": "Pamidronato dissódico 90 mg – frasco-ampola\n     Inibidor da reabsorção óssea",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "AD - 10 mL",
+
+      "Diluição/ Volume de Diluição": "SG 5%, SF 0,9% - 250 mL",
+
+      "Concentração máxima de administração": "0,36 mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Máximo de 1 mg/min.\n     Recomendado administrar em 2\n     horas.",
+
+      "Observações": "Deve ser sempre diluído e administrado por infusão\n     intravenosa lenta.",
+
+      "classe": "Inibidor da Reabsorção Óssea"
+
+    }
+
+  ],
+
+  "Anti-hipertensivo": [
+
+    {
+
+      "Medicamento": "Hidralazina, cloridrato 20 mg/mL -\n     ampola 1 mL\n     Antihipertensivo",
+
+      "Via de administração": "EV\n     IM",
+
+      "Reconstituição": "SF 0,9%-9 mL para EV\n     direto.\n     Puro para IM.\n     50mL",
+
+      "Diluição/ Volume de Diluição": "para Infusão.",
+
+      "Concentração máxima de administração": "200 a 400 mg/Litro",
+
+      "Velocidade/ Tempo de infusão": "EV direto: 3 a 5 min\n     Infusão continua: 50 -\n     150mcg/min",
+
+      "Observações": "Não usar SG 5%",
+
+      "classe": "Anti-hipertensivo"
+
+    },
+
+    {
+
+      "Medicamento": "Verapamil, cloridrato 2,5 mg/mL -\n     ampola 2 mL\n     Anti-hipertensivo",
+
+      "Via de administração": "EV",
+
+      "Reconstituição": "_",
+
+      "Diluição/ Volume de Diluição": "SG 5% - 150 - 250 mL",
+
+      "Concentração máxima de administração": "2,5mg/mL",
+
+      "Velocidade/ Tempo de infusão": "Inicial - EV direto por 2 a 3 min\n     Repetição: 30 minutos",
+
+      "Observações": "Incompatível com soluções alcalinas (ex. solução de\n     bicarbonato.",
+
+      "classe": "Anti-hipertensivo"
+
+    }
+
+  ]
+
+};
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const classSelect = document.getElementById('classSelect');
+
+            const medicationSelect = document.getElementById('medicationSelect');
+
+            const infoButtonsContainer = document.getElementById('infoButtonsContainer');
+
+            const diluicaoOutput = document.getElementById('diluicaoOutput');
+
+            // Mapping of data keys to friendly button names and icons/descriptions
+
+            const buttonLabels = {
+
+                "Via de administração": { label: "Via de Administração", icon: "💉" },
+
+                "Reconstituição": { label: "Reconstituição", icon: "💧" },
+
+                "Diluição/ Volume de Diluição": { label: "Diluição/Volume", icon: "🧪" },
+
+                "Concentração máxima de administração": { label: "Concentração Máxima", icon: "📊" },
+
+                "Velocidade/ Tempo de infusão": { label: "Velocidade/Tempo de Infusão", icon: "⏰" },
+
+                "Observações": { label: "Observações", icon: "💡" }
+
+            };
+
+            // Populate the class dropdown
+
+            Object.keys(medicationDataByClass).sort().forEach(classe => {
+
+                const option = document.createElement('option');
+
+                option.value = classe;
+
+                option.textContent = classe;
+
+                classSelect.appendChild(option);
+
+            });
+
+            let currentSelectedMedication = null; // Stores the selected medication object
+
+            // Listener for changes in class selection
+
+            classSelect.addEventListener('change', (event) => {
+
+                const selectedClass = event.target.value;
+
+                medicationSelect.innerHTML = '<option value="">-- Selecione um medicamento --</option>'; // Clear previous medications
+
+                infoButtonsContainer.innerHTML = ''; // Clear info buttons
+
+                diluicaoOutput.innerHTML = 'Selecione uma classe e um medicamento para ver os detalhes.'; // Clear details area
+
+                medicationSelect.disabled = true; // Disable the second dropdown initially
+
+                if (!selectedClass) {
+
+                    return;
+
+                }
+
+                const medicationsInClass = medicationDataByClass[selectedClass];
+
+                if (medicationsInClass) {
+
+                    medicationsInClass.sort((a, b) => a['Medicamento'].localeCompare(b['Medicamento'])).forEach(med => {
+
+                        const option = document.createElement('option');
+
+                        option.value = med['Medicamento'];
+
+                        option.textContent = med['Medicamento'];
+
+                        medicationSelect.appendChild(option);
+
+                    });
+
+                    medicationSelect.disabled = false; // Enable the second dropdown
+
+                }
+
+            });
+
+            // Listener for changes in medication selection
+
+            medicationSelect.addEventListener('change', (event) => {
+
+                const selectedMedicationName = event.target.value;
+
+                infoButtonsContainer.innerHTML = ''; // Clear previous buttons
+
+                diluicaoOutput.innerHTML = 'Selecione um medicamento e clique em um botão acima para ver os detalhes.'; // Clear details area
+
+                if (!selectedMedicationName) {
+
+                    currentSelectedMedication = null;
+
+                    infoButtonsContainer.style.display = 'none';
+
+                    return;
+
+                }
+
+                const selectedClass = classSelect.value;
+
+                const medicationsInClass = medicationDataByClass[selectedClass];
+
+                currentSelectedMedication = medicationsInClass.find(med =>
+
+                    med['Medicamento'] === selectedMedicationName
+
+                );
+
+                if (currentSelectedMedication) {
+
+                    // Generate buttons for each information field
+
+                    for (const key in buttonLabels) {
+
+                        const labelInfo = buttonLabels[key];
+
+                        // Check if the field exists and is not empty to create the button
+
+                        if (currentSelectedMedication[key] && currentSelectedMedication[key].trim() !== '') {
+
+                            const button = document.createElement('button');
+
+                            button.classList.add('info-button', 'btn', 'btn-primary'); // Add Bootstrap classes
+
+                            button.innerHTML = `<span class="output-icon">${labelInfo.icon}</span>${labelInfo.label}`; // Add icon
+
+                            button.dataset.infoKey = key; // Store the data key in the button
+
+                            infoButtonsContainer.appendChild(button);
+
+                            button.addEventListener('click', () => {
+
+                                // Remove 'active' class from all buttons
+
+                                document.querySelectorAll('.info-button').forEach(btn => {
+
+                                    btn.classList.remove('active');
+
+                                });
+
+                                // Add 'active' class to the clicked button
+
+                                button.classList.add('active');
+
+                                const infoKey = button.dataset.infoKey;
+
+                                const infoValue = currentSelectedMedication[infoKey] || 'Não especificado.';
+
+                                
+
+                                let formattedInfo = `<h4 class="font-semibold mb-3">${labelInfo.icon} ${labelInfo.label} para <strong>${currentSelectedMedication['Medicamento']}</strong>:</h4>`;
+
+                                // Add specific formatting for each type of information
+
+                                switch(infoKey) {
+
+                                    case "Reconstituição":
+
+                                        formattedInfo += `<p>O volume recomendado para reconstituição é: <strong>${infoValue}</strong>.</p>`;
+
+                                        break;
+
+                                    case "Via de administração":
+
+                                        formattedInfo += `<p>As vias de administração permitidas são: <strong>${infoValue.replace(/IV direta/g, 'IV Direta')}</strong>.</p>`;
+
+                                        break;
+
+                                    case "Diluição/ Volume de Diluição":
+
+                                        formattedInfo += `<p>O volume necessário para diluição é: <strong>${infoValue}</strong>.</p>`;
+
+                                        break;
+
+                                    case "Concentração máxima de administração":
+
+                                        formattedInfo += `<p>A concentração recomendada é: <strong>${infoValue}</strong>.</p>`;
+
+                                        break;
+
+                                    case "Velocidade/ Tempo de infusão":
+
+                                        formattedInfo += `<p>O tempo de perfusão recomendado é de: <strong>${infoValue}</strong>.</p>`;
+
+                                        break;
+
+                                    case "Observações":
+
+                                        formattedInfo += `<p><strong>Observações Importantes:</strong> <span class="text-yellow-300">${infoValue}</span></p>`;
+
+                                        formattedInfo += `<p class="text-sm text-gray-400 mt-2"><em>Preste atenção a estas notas para evitar complicações ou garantir a correta administração.</em></p>`;
+
+                                        break;
+
+                                    default:
+
+                                        formattedInfo += `<p>${infoValue}</p>`;
+
+                                }
+
+                                
+
+                                diluicaoOutput.innerHTML = formattedInfo;
+
+                            });
+
+                        }
+
+                    }
+
+                    infoButtonsContainer.style.display = 'flex'; // Show the button container
+
+                } else {
+
+                    infoButtonsContainer.style.display = 'none';
+
+                    diluicaoOutput.innerHTML = '<span class="text-red-400">Dados para o medicamento selecionado não encontrados.</span>';
+
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+
